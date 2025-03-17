@@ -17,3 +17,4 @@
 * *This mean caputres two minions under the rain and one sharing his/her umbrella with his friend. This shows how I currently feel about my university study as we get older I feel like help is getting more important instead of just working on it yourself.*
 
 
+
