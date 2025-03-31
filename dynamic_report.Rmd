@@ -1,0 +1,71 @@
+---
+title: My dynamic report
+output: html_fragment
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE, error=FALSE)
+
+```
+
+```{css}
+body {
+color:#50586C;
+background-color:#DCE2F0;
+padding: 60px;
+}
+```
+
+## Youtube Videos
+
+There is a total of 21 data points in this survey and was done through a online form.
+
+```{r}
+#Part C: Importing data into R
+
+library(tidyverse)
+
+csv_file <- "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ1GLgXZyaMvP2eTB1pG-hgPlw8wvwKFq0hvtkxaZ3nahAILVjfY44lcaLh2Jr6-SRpQz_pT37uBKxI/pub?gid=1184216413&single=true&output=csv"
+
+loged_data <- read_csv(csv_file) 
+  
+latest_data <- read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vQ1GLgXZyaMvP2eTB1pG-hgPlw8wvwKFq0hvtkxaZ3nahAILVjfY44lcaLh2Jr6-SRpQz_pT37uBKxI/pub?gid=1184216413&single=true&output=csv") %>%
+  rename(language_id = 2,
+         length_id=3 ,
+         letter_amount= 4, 
+         people_tm = 5,
+         Fit_criteria = 6,)
+  
+paste( "Through this survey we found out that most Youtube videos are", 
+       max(latest_data$length_id))
+       
+paste("Through the 21 youtube videos I have collected we can come to a conclusion that the videos with the longest title is ", 
+      latest_data$letter_amount %>% max(), 
+      "words long and the smallest title is", 
+      latest_data$letter_amount %>% min(), 
+      "words long")
+
+paste("We can also conclusde that most of our Youtube videos titles  are around",
+      latest_data$letter_amount %>% mean() %>% round(),
+      "words long")  
+
+
+latest_data %>%
+  ggplot() + 
+  geom_bar(aes(x=language_id)) +
+  labs(title = "What language is spoken in the viedo?",
+       subtitle = "We are looking for the videos main language of the video", 
+       caption = "Latest_data",
+       y = "Amount of videos")
+
+
+latest_data %>%
+  ggplot() + 
+  geom_bar(aes(x=length_id)) +
+  labs(title = "How long the Youtube video is?",
+       subtitle = "This will be measured in minutes",
+       caption = "latest_data",
+       y= "Number of videos",
+       x= "Lnegth of youtube video (minutes)")
+
+```
